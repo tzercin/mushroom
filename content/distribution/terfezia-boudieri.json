@@ -1,0 +1,17 @@
+{
+ "source": "GBIF",
+ "taxonKey": 2595446,
+ "gbifName": "Terfezia boudieri Chatin",
+ "records": 0,
+ "years": null,
+ "points": [],
+ "worldRecords": 9,
+ "countries": {
+  "TN": 3,
+  "IS": 2,
+  "ES": 1,
+  "GB": 1,
+  "IL": 1,
+  "PT": 1
+ }
+}

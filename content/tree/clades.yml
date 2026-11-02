@@ -1,0 +1,202 @@
+# Higher-level structure of the tree (kingdom → family/genus).
+# Species live in content/species/*.md and attach here via their `parent` field.
+# Every id must be unique across clades AND species.
+id: fungi
+name: Fungi
+rank: kingdom
+tr: Mantarlar alemi
+en: Kingdom of fungi
+children:
+  - id: basidiomycota
+    name: Basidiomycota
+    rank: phylum
+    tr: Bazidiyumlu mantarlar
+    en: Club fungi
+    children:
+      - id: agaricomycetes
+        name: Agaricomycetes
+        rank: class
+        children:
+          - id: agaricales
+            name: Agaricales
+            rank: order
+            tr: Şapkalı mantarlar
+            en: Gilled mushrooms
+            children:
+              - id: amanitaceae
+                name: Amanitaceae
+                rank: family
+                children:
+                  - { id: amanita, name: Amanita, rank: genus }
+              - id: omphalotaceae
+                name: Omphalotaceae
+                rank: family
+                children:
+                  - { id: omphalotus, name: Omphalotus, rank: genus }
+              - id: psathyrellaceae
+                name: Psathyrellaceae
+                rank: family
+                children:
+                  - { id: coprinopsis, name: Coprinopsis, rank: genus }
+              - id: agaricaceae
+                name: Agaricaceae
+                rank: family
+                children:
+                  - { id: agaricus, name: Agaricus, rank: genus }
+                  - { id: macrolepiota, name: Macrolepiota, rank: genus }
+                  - { id: chlorophyllum, name: Chlorophyllum, rank: genus }
+                  - { id: lepiota, name: Lepiota, rank: genus }
+                  - { id: coprinus, name: Coprinus, rank: genus }
+                  - { id: lycoperdon, name: Lycoperdon, rank: genus }
+              - id: pleurotaceae
+                name: Pleurotaceae
+                rank: family
+                children:
+                  - { id: pleurotus, name: Pleurotus, rank: genus }
+          - id: boletales
+            name: Boletales
+            rank: order
+            tr: Gözenekli şapkalılar
+            en: Boletes
+            children:
+              - id: boletaceae
+                name: Boletaceae
+                rank: family
+                children:
+                  - { id: boletus, name: Boletus, rank: genus }
+                  - { id: imleria, name: Imleria, rank: genus }
+                  - { id: leccinum, name: Leccinum, rank: genus }
+                  - { id: tylopilus, name: Tylopilus, rank: genus }
+                  - { id: rubroboletus, name: Rubroboletus, rank: genus }
+              - id: suillaceae
+                name: Suillaceae
+                rank: family
+                children:
+                  - { id: suillus, name: Suillus, rank: genus }
+              - id: hygrophoropsidaceae
+                name: Hygrophoropsidaceae
+                rank: family
+                children:
+                  - { id: hygrophoropsis, name: Hygrophoropsis, rank: genus }
+              - id: sclerodermataceae
+                name: Sclerodermataceae
+                rank: family
+                children:
+                  - { id: scleroderma, name: Scleroderma, rank: genus }
+          - id: russulales
+            name: Russulales
+            rank: order
+            children:
+              - id: russulaceae
+                name: Russulaceae
+                rank: family
+                children:
+                  - { id: lactarius, name: Lactarius, rank: genus }
+                  - { id: russula, name: Russula, rank: genus }
+              - id: hericiaceae
+                name: Hericiaceae
+                rank: family
+                children:
+                  - { id: hericium, name: Hericium, rank: genus }
+              - id: stereaceae
+                name: Stereaceae
+                rank: family
+                children:
+                  - { id: stereum, name: Stereum, rank: genus }
+          - id: cantharellales
+            name: Cantharellales
+            rank: order
+            children:
+              - id: cantharellaceae
+                name: Cantharellaceae
+                rank: family
+                children:
+                  - { id: cantharellus, name: Cantharellus, rank: genus }
+              - id: hydnaceae
+                name: Hydnaceae
+                rank: family
+                children:
+                  - { id: hydnum, name: Hydnum, rank: genus }
+          - id: polyporales
+            name: Polyporales
+            rank: order
+            tr: Raf mantarları
+            en: Bracket fungi
+            children:
+              - id: polyporaceae
+                name: Polyporaceae
+                rank: family
+                children:
+                  - { id: fomes, name: Fomes, rank: genus }
+                  - { id: trametes, name: Trametes, rank: genus }
+              - id: ganodermataceae
+                name: Ganodermataceae
+                rank: family
+                children:
+                  - { id: ganoderma, name: Ganoderma, rank: genus }
+              - id: fomitopsidaceae
+                name: Fomitopsidaceae
+                rank: family
+                children:
+                  - { id: laetiporus, name: Laetiporus, rank: genus }
+          - id: auriculariales
+            name: Auriculariales
+            rank: order
+            tr: Jelatinli mantarlar
+            en: Jelly fungi
+            children:
+              - id: auriculariaceae
+                name: Auriculariaceae
+                rank: family
+                children:
+                  - { id: auricularia, name: Auricularia, rank: genus }
+  - id: ascomycota
+    name: Ascomycota
+    rank: phylum
+    tr: Keseli mantarlar
+    en: Sac fungi
+    children:
+      - id: pezizomycetes
+        name: Pezizomycetes
+        rank: class
+        children:
+          - id: pezizales
+            name: Pezizales
+            rank: order
+            tr: Kadeh mantarları
+            en: Cup fungi
+            children:
+              - id: morchellaceae
+                name: Morchellaceae
+                rank: family
+                children:
+                  - { id: morchella, name: Morchella, rank: genus }
+                  - { id: verpa, name: Verpa, rank: genus }
+              - id: discinaceae
+                name: Discinaceae
+                rank: family
+                children:
+                  - { id: gyromitra, name: Gyromitra, rank: genus }
+              - id: tuberaceae
+                name: Tuberaceae
+                rank: family
+                children:
+                  - { id: tuber, name: Tuber, rank: genus }
+              - id: pezizaceae
+                name: Pezizaceae
+                rank: family
+                children:
+                  - { id: terfezia, name: Terfezia, rank: genus }
+      - id: sordariomycetes
+        name: Sordariomycetes
+        rank: class
+        children:
+          - id: hypocreales
+            name: Hypocreales
+            rank: order
+            children:
+              - id: cordycipitaceae
+                name: Cordycipitaceae
+                rank: family
+                children:
+                  - { id: cordyceps, name: Cordyceps, rank: genus }

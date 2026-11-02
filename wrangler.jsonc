@@ -1,0 +1,11 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "mushroom",
+  "compatibility_date": "2026-11-01",
+  // Static-only Worker: Cloudflare serves the Vite build from ./dist.
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  },
+  "routes": [{ "pattern": "mushroom.turkerziyaercin.com", "custom_domain": true }]
+}
