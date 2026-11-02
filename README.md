@@ -151,6 +151,10 @@ npm run deploy
 Alternatively, connect the GitHub repo under **Workers & Pages → Create → Import a repository**
 with build command `npm run build`. Every push then deploys, and pull requests get preview URLs.
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md). Changes come in as pull requests and are reviewed before merging.
+
 ## Disclaimer
 
 This site is for education only. Never eat a wild mushroom based on this site.
