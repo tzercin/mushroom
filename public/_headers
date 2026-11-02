@@ -1,6 +1,5 @@
 # Security headers applied by Cloudflare Workers Static Assets to every response.
-# The CSP is report-only until verified in a browser (watch the devtools console);
-# once clean, rename it to Content-Security-Policy to enforce.
+# cloudflareinsights.com is Cloudflare Web Analytics, which Cloudflare injects into the HTML.
 /*
   Strict-Transport-Security: max-age=31536000
   X-Content-Type-Options: nosniff
@@ -8,4 +7,4 @@
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
   Cross-Origin-Opener-Policy: same-origin
-  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'
