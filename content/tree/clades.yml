@@ -28,6 +28,7 @@ children:
                 rank: family
                 children:
                   - { id: amanita, name: Amanita, rank: genus }
+                  - { id: saproamanita, name: Saproamanita, rank: genus }
               - id: omphalotaceae
                 name: Omphalotaceae
                 rank: family
