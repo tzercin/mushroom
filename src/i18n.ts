@@ -6,7 +6,7 @@ const resources = {
   tr: {
     translation: {
       title: 'Mantar Ağı',
-      subtitle: 'Türkiye mantarlarının evrim ağı',
+      subtitle: 'Türkiye mantarlarının aile ağı',
       search: 'Mantar ara…',
       noResults: 'Sonuç yok',
       hint: 'Sürükle: döndür · Kaydır: yakınlaştır · Tıkla: keşfet',
@@ -20,6 +20,7 @@ const resources = {
         zoomOut: 'Uzaklaştır',
       },
       close: 'Kapat',
+      source: 'GitHub’da kaynak kodu',
       species_one: '{{count}} tür',
       species_other: '{{count}} tür',
       habitat: 'Yaşam alanı',
@@ -94,6 +95,7 @@ const resources = {
         zoomOut: 'Zoom out',
       },
       close: 'Close',
+      source: 'Source code on GitHub',
       species_one: '{{count}} species',
       species_other: '{{count}} species',
       habitat: 'Habitat',
