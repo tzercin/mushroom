@@ -29,6 +29,7 @@ const resources = {
       branches: 'Dallar',
       lineage: 'Soy hattı',
       photoSoon: 'Fotoğraf yakında',
+      photo: { prev: 'Önceki fotoğraf', next: 'Sonraki fotoğraf', goto: '{{n}}. fotoğraf' },
       distribution: {
         title: { turkey: 'Türkiye’deki kayıtlar', world: 'Dünyadaki kayıtlar' },
         view: { turkey: 'Türkiye', world: 'Dünya' },
@@ -102,6 +103,7 @@ const resources = {
       branches: 'Branches',
       lineage: 'Lineage',
       photoSoon: 'Photo coming soon',
+      photo: { prev: 'Previous photo', next: 'Next photo', goto: 'Photo {{n}}' },
       distribution: {
         title: { turkey: 'Records in Türkiye', world: 'Records worldwide' },
         view: { turkey: 'Türkiye', world: 'World' },

@@ -27,6 +27,10 @@ photos:
     author: "Ernie"
     license: Public domain
     source: https://commons.wikimedia.org/wiki/File:AD2009Sep15_Amanita_muscaria_var._muscaria_02.jpg
+  - file: amanita-muscaria/02.jpg
+    author: "George Chernilevsky"
+    license: Public domain
+    source: https://commons.wikimedia.org/wiki/File:Amanita_muscaria_2018_G10.jpg
 ---
 
 ## tr

@@ -4,6 +4,7 @@ import { ancestorAt, displayName, lineage, loadClade, loadSpecies, speciesUnder,
 import type { CladeDetail, Edibility, Lang, Lookalike, SpeciesDetail, TreeNode } from '../data/types'
 import { useApp } from '../store'
 import { DistributionMap } from './DistributionMap'
+import { PhotoGallery } from './PhotoGallery'
 
 const EDIBILITY_COLOR: Record<Edibility, string> = {
   edible: '#6ee7a8',
@@ -85,7 +86,6 @@ function SpeciesBody({ tree, node, lang }: { tree: TreeIndex; node: TreeNode; la
   const siblings = tree.byId.get(node.parent!)!.children.filter((id) => id !== node.id).map((id) => tree.byId.get(id)!)
   const family = ancestorAt(tree, node.id, 'family')
   const cousins = family ? speciesUnder(tree, family.id).filter((n) => n.parent !== node.parent) : []
-  const photo = detail?.photos[0]
 
   return (
     <>
@@ -99,31 +99,7 @@ function SpeciesBody({ tree, node, lang }: { tree: TreeIndex; node: TreeNode; la
         </span>
       )}
 
-      <figure className="mt-5 overflow-hidden rounded-2xl bg-white/5">
-        {photo ? (
-          <>
-            <img
-              src={`${import.meta.env.VITE_IMAGE_BASE_URL ?? '/photos'}/${photo.file}`}
-              alt={node.name}
-              className="aspect-[4/3] w-full object-cover"
-              loading="lazy"
-            />
-            <figcaption className="px-3 py-2 text-[11px] text-white/40">
-              © {photo.author} · {photo.license}
-              {photo.source && (
-                <>
-                  {' · '}
-                  <a href={photo.source} target="_blank" rel="noreferrer" className="underline hover:text-white">
-                    source
-                  </a>
-                </>
-              )}
-            </figcaption>
-          </>
-        ) : (
-          <PhotoPlaceholder color={node.color} label={t('photoSoon')} />
-        )}
-      </figure>
+      <PhotoGallery photos={detail?.photos ?? []} alt={node.name} color={node.color} />
 
       {detail && (
         <>
@@ -268,18 +244,5 @@ function Related({ title, nodes, lang }: { title: string; nodes: TreeNode[]; lan
         ))}
       </div>
     </>
-  )
-}
-
-function PhotoPlaceholder({ color, label }: { color: string; label: string }) {
-  return (
-    <div className="relative grid aspect-[4/3] place-items-center">
-      <svg viewBox="0 0 120 90" className="h-2/3 opacity-60" style={{ filter: `drop-shadow(0 0 12px ${color})` }}>
-        <path d="M22 52c0-21 17-36 38-36s38 15 38 36z" fill={color} opacity="0.85" />
-        <path d="M52 52h16l3 28H49z" fill="#e8eef5" opacity="0.8" />
-        <path d="M10 82c18-4 30 3 50 0s34-4 50 0" stroke={color} strokeWidth="1" fill="none" opacity="0.6" />
-      </svg>
-      <span className="absolute bottom-3 text-xs text-white/40">{label}</span>
-    </div>
   )
 }
