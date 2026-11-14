@@ -34,11 +34,17 @@ children:
                 rank: family
                 children:
                   - { id: omphalotus, name: Omphalotus, rank: genus }
+                  - { id: lentinula, name: Lentinula, rank: genus }
               - id: psathyrellaceae
                 name: Psathyrellaceae
                 rank: family
                 children:
                   - { id: coprinopsis, name: Coprinopsis, rank: genus }
+              - id: strophariaceae
+                name: Strophariaceae
+                rank: family
+                children:
+                  - { id: stropharia, name: Stropharia, rank: genus }
               - id: agaricaceae
                 name: Agaricaceae
                 rank: family
@@ -79,6 +85,7 @@ children:
                 rank: family
                 children:
                   - { id: hygrophoropsis, name: Hygrophoropsis, rank: genus }
+                  - { id: leucogyrophana, name: Leucogyrophana, rank: genus }
               - id: sclerodermataceae
                 name: Sclerodermataceae
                 rank: family

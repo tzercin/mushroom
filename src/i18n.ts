@@ -5,8 +5,8 @@ import type { Lang } from './data/types'
 const resources = {
   tr: {
     translation: {
-      title: 'Mantar Ağı',
-      subtitle: 'Türkiye mantarlarının aile ağı',
+      title: 'Mantar Haritası',
+      subtitle: 'Dünya mantarlarının evrimsel ağı',
       search: 'Mantar ara…',
       noResults: 'Sonuç yok',
       hint: 'Sürükle: döndür · Kaydır: yakınlaştır · Tıkla: keşfet',
@@ -80,8 +80,8 @@ const resources = {
   },
   en: {
     translation: {
-      title: 'Mycelium',
-      subtitle: 'The evolutionary network of Türkiye’s mushrooms',
+      title: 'Mushroom Map',
+      subtitle: 'The evolutionary network of mushrooms worldwide',
       search: 'Search mushrooms…',
       noResults: 'No results',
       hint: 'Drag to rotate · Scroll to zoom · Click to explore',

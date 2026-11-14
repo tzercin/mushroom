@@ -6,7 +6,7 @@ it documents the content format in detail.
 
 ## What's welcome
 
-- **A new species found in Türkiye**: `content/species/<id>.md`, plus its genus (and any missing
+- **A new species from anywhere in the world**: `content/species/<id>.md`, plus its genus (and any missing
   higher clades) in `content/tree/clades.yml` with a `content/clades/<id>.md` for each new clade.
 - **Fixes to existing content**: a wrong edibility, habitat, lookalike note, Turkish or English text.
 - **Photos** with a licence that allows reuse (see [Photos](README.md#photos)).
@@ -16,7 +16,7 @@ it documents the content format in detail.
 
 This site is about wild mushrooms, some of them deadly. Accuracy matters more than quantity.
 
-- Only add species with recorded occurrences in Türkiye (check GBIF or iNaturalist).
+- Species from anywhere in the world are welcome; Turkish occurrence records are not required. Verify taxonomy and distribution with reliable sources such as GBIF or iNaturalist. Do not imply that cultivated records establish a native or wild range.
 - Every species needs both `## tr` and `## en` descriptions and `habitat`. Write natural Turkish,
   not a word-for-word translation.
 - `edibility` must follow reliable mycological sources. When in doubt, choose the more cautious

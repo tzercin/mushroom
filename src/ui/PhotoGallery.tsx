@@ -1,12 +1,26 @@
-import { useRef, useState } from 'react'
+import { useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { Photo } from '../data/types'
 
 const BASE = import.meta.env.VITE_IMAGE_BASE_URL ?? '/photos'
 /** Horizontal travel (px) that counts as a swipe rather than a tap. */
 const SWIPE = 40
+/** Beyond this many photos the dots would overflow; the counter alone does the job. */
+const MAX_DOTS = 12
 
-export function PhotoGallery({ photos, alt, color }: { photos: Photo[]; alt: string; color: string }) {
+export function PhotoGallery<P extends Photo>({
+  photos,
+  alt,
+  color,
+  caption,
+}: {
+  photos: P[]
+  /** Alt text for all photos, or per photo (e.g. the species each one shows). */
+  alt: string | ((photo: P) => string)
+  color: string
+  /** Shown above the credit line for the current photo. */
+  caption?: (photo: P) => ReactNode
+}) {
   const { t } = useTranslation()
   const [index, setIndex] = useState(0)
   const touchX = useRef<number | null>(null)
@@ -23,6 +37,7 @@ export function PhotoGallery({ photos, alt, color }: { photos: Photo[]; alt: str
   const current = Math.min(index, photos.length - 1)
   const photo = photos[current]
   const go = (step: number) => setIndex((current + step + photos.length) % photos.length)
+  const altOf = (p: P) => (typeof alt === 'string' ? alt : alt(p))
 
   return (
     <figure
@@ -55,7 +70,7 @@ export function PhotoGallery({ photos, alt, color }: { photos: Photo[]; alt: str
             <img
               key={p.file}
               src={`${BASE}/${p.file}`}
-              alt={many ? `${alt} (${i + 1}/${photos.length})` : alt}
+              alt={altOf(p) + (many ? ` (${i + 1}/${photos.length})` : '')}
               aria-hidden={i !== current}
               className="h-full w-full shrink-0 object-cover"
               // The neighbours load up front so flipping to them is instant.
@@ -69,21 +84,24 @@ export function PhotoGallery({ photos, alt, color }: { photos: Photo[]; alt: str
           <>
             <NavButton side="left" label={t('photo.prev')} onClick={() => go(-1)} />
             <NavButton side="right" label={t('photo.next')} onClick={() => go(1)} />
-            <div className="absolute inset-x-0 bottom-2 flex justify-center gap-1.5">
-              {photos.map((p, i) => (
-                <button
-                  key={p.file}
-                  onClick={() => setIndex(i)}
-                  aria-label={t('photo.goto', { n: i + 1 })}
-                  aria-current={i === current}
-                  className={`h-1.5 rounded-full transition-all ${i === current ? 'w-4 bg-white' : 'w-1.5 bg-white/50 hover:bg-white/80'}`}
-                />
-              ))}
-            </div>
+            {photos.length <= MAX_DOTS && (
+              <div className="absolute inset-x-0 bottom-2 flex justify-center gap-1.5">
+                {photos.map((p, i) => (
+                  <button
+                    key={p.file}
+                    onClick={() => setIndex(i)}
+                    aria-label={t('photo.goto', { n: i + 1 })}
+                    aria-current={i === current}
+                    className={`h-1.5 rounded-full transition-all ${i === current ? 'w-4 bg-white' : 'w-1.5 bg-white/50 hover:bg-white/80'}`}
+                  />
+                ))}
+              </div>
+            )}
           </>
         )}
       </div>
 
+      {caption && <div className="px-3 pt-2">{caption(photo)}</div>}
       <figcaption className="flex gap-2 px-3 py-2 text-[11px] text-white/40">
         <span>
           © {photo.author} · {photo.license}

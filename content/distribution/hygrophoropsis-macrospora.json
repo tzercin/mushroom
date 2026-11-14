@@ -1,0 +1,21 @@
+{
+ "source": "GBIF",
+ "taxonKey": 2525732,
+ "gbifName": "Hygrophoropsis macrospora (D.A.Reid) Kuyper",
+ "records": 0,
+ "years": null,
+ "points": [],
+ "worldRecords": 107,
+ "countries": {
+  "GB": 65,
+  "BE": 18,
+  "AT": 7,
+  "DE": 4,
+  "ES": 4,
+  "NL": 3,
+  "PL": 3,
+  "CH": 1,
+  "SE": 1,
+  "US": 1
+ }
+}
