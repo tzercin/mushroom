@@ -188,15 +188,23 @@ function CladeBody({ tree, node, lang }: { tree: TreeIndex; node: TreeNode; lang
   useEffect(() => {
     let live = true
     setDetail(null)
-    // Not every clade has a text yet; the panel simply goes without one.
-    loadClade(node.id).then((d) => live && setDetail(d), () => {})
+    loadClade(node.id).then((d) => live && setDetail(d))
     return () => {
       live = false
     }
   }, [node.id])
   return (
     <>
-      {detail && <p className="mt-5 leading-relaxed text-white/85">{detail.description[lang]}</p>}
+      {detail && detail.photos.length > 0 && (
+        <PhotoGallery
+          photos={detail.photos}
+          alt={(p) => tree.byId.get(p.species)!.name}
+          color={node.color}
+          caption={(p) => <PhotoSpecies node={tree.byId.get(p.species)!} lang={lang} />}
+        />
+      )}
+      {/* Not every clade has a text yet; the panel simply goes without one. */}
+      {detail?.description && <p className="mt-5 leading-relaxed text-white/85">{detail.description[lang]}</p>}
       <p className="mt-4 text-sm text-white/60">{t('species', { count: node.speciesCount })}</p>
       {children[0]?.rank !== 'species' && (
         <>
@@ -221,6 +229,23 @@ function CladeBody({ tree, node, lang }: { tree: TreeIndex; node: TreeNode; lang
       )}
       <Related title={t('ranks.species')} nodes={speciesUnder(tree, node.id)} lang={lang} />
     </>
+  )
+}
+
+/** Which species a clade photo shows; opens it. */
+function PhotoSpecies({ node, lang }: { node: TreeNode; lang: Lang }) {
+  const name = displayName(node, lang)
+  return (
+    <button
+      onClick={() => useApp.getState().select(node.id)}
+      onMouseEnter={() => useApp.getState().hover(node.id)}
+      onMouseLeave={() => useApp.getState().hover(null)}
+      className="-mx-1 flex max-w-full items-baseline gap-2 rounded px-1 text-left text-sm hover:bg-white/10"
+    >
+      <span className="truncate">{name}</span>
+      {name !== node.name && <span className="truncate font-serif text-xs text-white/50 italic">{node.name}</span>}
+      <span className="ml-auto shrink-0 text-white/40">›</span>
+    </button>
   )
 }
 

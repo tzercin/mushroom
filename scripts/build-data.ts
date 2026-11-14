@@ -2,7 +2,7 @@
  * Builds the static data the app loads at runtime:
  *   public/data/tree.json            – every clade + species with a precomputed 3D layout
  *   public/data/species/<id>.json    – per-species details, fetched when a species is opened
- *   public/data/clades/<id>.json     – per-clade descriptions, fetched when a clade is opened
+ *   public/data/clades/<id>.json     – per-clade descriptions and photos, fetched when a clade is opened
  *
  * Sources: content/tree/clades.yml, content/clades/*.md and content/species/*.md
  */
@@ -151,13 +151,13 @@ for (const d of details)
 
 // Clade descriptions: content/clades/<id>.md, a body with "## tr" and "## en" sections.
 const cladeDir = path.join(CONTENT, 'clades')
-const cladeDetails = new Map<string, CladeDetail>()
+const cladeTexts = new Map<string, Localized>()
 for (const file of fs.readdirSync(cladeDir).filter((f) => f.endsWith('.md')).sort()) {
   const cid = file.slice(0, -3)
   const node = byId.get(cid)
   if (!node || node.rank === 'species') fail(`clades/${file}: no clade with id "${cid}" in clades.yml`)
   const { content } = matter(fs.readFileSync(path.join(cladeDir, file), 'utf8'))
-  cladeDetails.set(cid, { id: cid, description: description(`clades/${file}`, content) })
+  cladeTexts.set(cid, description(`clades/${file}`, content))
 }
 
 // ---------- distribution ----------
@@ -386,10 +386,21 @@ writeDir('species', details)
 fs.writeFileSync(path.join(OUT, 'turkey.json'), JSON.stringify(turkeyMap))
 fs.writeFileSync(path.join(OUT, 'world.json'), JSON.stringify(worldMap))
 // Only clades still visible after pruning; every one of them should be described.
-const visibleClades = nodes.filter((n) => n.rank !== 'species')
-for (const n of visibleClades) if (!cladeDetails.has(n.id)) console.warn(`⚠ clade "${n.id}" has no content/clades/${n.id}.md`)
-writeDir('clades', visibleClades.flatMap((n) => cladeDetails.get(n.id) ?? []))
+// Each also gets a gallery: the first photo of every species below it, in tree order.
+const cladeDetails: CladeDetail[] = h
+  .descendants()
+  .filter((n) => n.data.rank !== 'species')
+  .map((n) => {
+    const text = cladeTexts.get(n.data.id)
+    if (!text) console.warn(`⚠ clade "${n.data.id}" has no content/clades/${n.data.id}.md`)
+    const photos = n.leaves().flatMap((l) => {
+      const first = detailById.get(l.data.id)?.photos[0]
+      return first ? [{ ...first, species: l.data.id }] : []
+    })
+    return { id: n.data.id, ...(text && { description: text }), photos }
+  })
+writeDir('clades', cladeDetails)
 
 console.log(
-  `✔ ${nodes.length} nodes (${details.length} species, ${cladeDetails.size} clade texts, ${withDistribution} distributions) → public/data`,
+  `✔ ${nodes.length} nodes (${details.length} species, ${cladeTexts.size} clade texts, ${withDistribution} distributions) → public/data`,
 )

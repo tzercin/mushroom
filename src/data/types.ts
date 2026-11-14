@@ -117,5 +117,8 @@ export interface WorldMap {
 
 export interface CladeDetail {
   id: string
-  description: Localized
+  /** From content/clades/<id>.md; absent until that text is written. */
+  description?: Localized
+  /** One photo per species below the clade, tagged with the species it shows. */
+  photos: (Photo & { species: string })[]
 }

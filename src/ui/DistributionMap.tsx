@@ -5,7 +5,7 @@ import type { Distribution, Lang, TurkeyMap, WorldMap } from '../data/types'
 
 type View = 'turkey' | 'world'
 // Remembered across species, so comparing several on the world map doesn't mean re-clicking.
-let lastView: View = 'turkey'
+let lastView: View = 'world'
 
 /**
  * Where a species has been recorded: in Türkiye as dots with their provinces tinted, or
@@ -23,7 +23,7 @@ export function DistributionMap({ distribution, color }: { distribution?: Distri
       <div className="mt-5 flex items-center justify-between">
         <h3 className="text-xs tracking-[0.2em] text-white/40 uppercase">{t(`distribution.title.${view}`)}</h3>
         <div role="tablist" className="flex rounded-full bg-white/5 p-0.5 text-[11px]">
-          {(['turkey', 'world'] as const).map((v) => (
+          {(['world', 'turkey'] as const).map((v) => (
             <button
               key={v}
               role="tab"
@@ -156,12 +156,6 @@ function WorldView({ distribution, color }: { distribution?: Distribution; color
               )
             })}
           </g>
-          {/* Home: Türkiye always outlined, so it's easy to find. */}
-          {map.countries
-            .filter((c) => c.iso === 'TR')
-            .map((c) => (
-              <path key="home" d={c.d} fill="none" stroke="#ffffff" strokeOpacity={0.8} strokeWidth={1.2} pointerEvents="none" />
-            ))}
         </svg>
         <span className="pointer-events-none absolute top-1.5 left-3 text-xs text-white/70">
           {hovered && (

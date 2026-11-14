@@ -1,7 +1,8 @@
-# mushroom
+# Mantar Haritası · Mushroom Map
 
-Türkiye'deki mantar çeşitliliği haritası — an interactive 3D map of the evolutionary
-relationships between mushrooms found in Türkiye, drawn as a glowing mycelium network.
+Dünya mantarlarının çeşitlilik haritası — an interactive 3D map of the evolutionary
+relationships between mushrooms worldwide, drawn as a glowing mycelium network.
+Species do not need to occur in Türkiye to be included.
 Live at **https://mushroom.turkerziyaercin.com** (Cloudflare).
 
 ## Stack
@@ -21,6 +22,26 @@ npm run build      # data + typecheck + production build into dist/
 npm run preview    # serve dist/ locally
 ```
 
+## Docker
+
+Run a production build locally with Docker Compose:
+
+```sh
+docker compose up -d --build
+```
+
+Open **http://localhost:8080** on the Docker host. Nginx serves the built app,
+including species deep links. The existing development server is unaffected.
+After changing content or code, rerun the command to rebuild.
+
+```sh
+docker compose logs -f web  # logs
+docker compose down         # stop and remove the container
+```
+
+The build fetches npm dependencies; distribution data and photos come from the
+repository. Local environment files and credentials are excluded from the image.
+
 ## Content
 
 All content lives in git and is compiled to static JSON by `scripts/build-data.ts`
@@ -31,7 +52,7 @@ All content lives in git and is compiled to static JSON by `scripts/build-data.t
 | `content/tree/clades.yml` | The tree above species: kingdom → phylum → class → order → family → genus |
 | `content/clades/<id>.md` | One file per clade (kingdom to genus): a `## tr` and a `## en` description |
 | `content/species/<id>.md` | One file per species: details in the header block, then `## tr` and `## en` descriptions |
-| `content/distribution/<id>.json` | GBIF records of the species in Türkiye (generated, see [Distribution maps](#distribution-maps)) |
+| `content/distribution/<id>.json` | Worldwide GBIF country counts and Turkish occurrence points (generated, see [Distribution maps](#distribution-maps)) |
 | `content/geo/provinces.json` | The 81 province boundaries, simplified (generated) |
 | `content/geo/world.json` | Country boundaries for the world map (generated) |
 
@@ -80,13 +101,14 @@ look:
 
 ## Distribution maps
 
-The species panel shows where the species has been recorded in Türkiye: one dot per place
+The species panel opens on the worldwide distribution map. An optional Türkiye tab
+shows where the species has been recorded in Türkiye: one dot per place
 with a [GBIF](https://www.gbif.org) record (mostly iNaturalist observations and herbarium
 specimens), with the provinces that have records tinted. These are records, not the
 species' full range, and many species have only a few records so far.
 
-A **World** tab tints each country by its number of GBIF records for the species (log scale),
-with Türkiye outlined. Keeping every point worldwide would mean hundreds of thousands per
+The default **World** tab tints each country by its number of GBIF records for the species (log scale),
+by country. Keeping every point worldwide would mean hundreds of thousands per
 species, so only the count per country is kept. These counts follow how many people record
 fungi in a country more than how common the species is there.
 
