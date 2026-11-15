@@ -208,3 +208,18 @@ children:
                 rank: family
                 children:
                   - { id: cordyceps, name: Cordyceps, rank: genus }
+      - id: saccharomycetes
+        name: Saccharomycetes
+        rank: class
+        tr: Gerçek mayalar
+        en: True yeasts
+        children:
+          - id: saccharomycetales
+            name: Saccharomycetales
+            rank: order
+            children:
+              - id: saccharomycetaceae
+                name: Saccharomycetaceae
+                rank: family
+                children:
+                  - { id: saccharomyces, name: Saccharomyces, rank: genus }

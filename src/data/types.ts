@@ -27,6 +27,7 @@ export const FORMS = [
   'truffle', // lumpy tuber half in the ground (Tuber, Terfezia)
   'club', // slender clubs (Cordyceps)
   'ear', // cupped, ear-like jelly (Auricularia)
+  'yeast', // heap of budding oval cells on a colony, no fruiting body (Saccharomyces)
 ] as const
 export type Form = (typeof FORMS)[number]
 

@@ -219,6 +219,32 @@ const BUILDERS: Record<Form, () => BufferGeometry> = {
       ear(0.36, 0.42, 2.8),
     )
   },
+
+  yeast: () => {
+    // No fruiting body: a magnified heap of oval cells on a flat colony, most with a bud.
+    const rand = seeded('yeast')
+    const layers = [
+      { count: 4, ring: 0.3, r: 0.26, y: 0.36 },
+      { count: 3, ring: 0.16, r: 0.24, y: 0.76 },
+      { count: 1, ring: 0, r: 0.22, y: 1.08 },
+    ]
+    const cells = layers.flatMap(({ count, ring, r, y }, layer) =>
+      Array.from({ length: count }, (_, i) => {
+        const a = (i / count) * Math.PI * 2 + layer * 0.9 + rand() * 0.4
+        const centre = new Vector3(ring * Math.cos(a), y, ring * Math.sin(a))
+        const cell = new SphereGeometry(r, 20, 14).scale(1, 1.2, 1).rotateZ((rand() - 0.5) * 0.6)
+        const parts = [part(cell.translate(centre.x, centre.y, centre.z), BODY)]
+        if (rand() < 0.8) {
+          // The bud sits on the cell's surface, pointing outwards and upwards.
+          const dir = randomUnit(rand).add(new Vector3(centre.x, 0.8, centre.z)).normalize()
+          const at = centre.clone().add(new Vector3(dir.x * r, dir.y * r * 1.2, dir.z * r))
+          parts.push(part(new SphereGeometry(r * 0.42, 14, 10).translate(at.x, at.y, at.z), BODY))
+        }
+        return parts
+      }).flat(),
+    )
+    return merge(part(lathe([[0.64, 0], [0.62, 0.02], [0.5, 0.05], [0, 0.06]], 28), STEM), ...cells)
+  },
 }
 
 // ---------- helpers ----------
