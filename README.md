@@ -1,7 +1,10 @@
 # Mantar Haritası · Mushroom Map
 
-Dünya mantarlarının çeşitlilik haritası — an interactive 3D map of the evolutionary
-relationships between mushrooms worldwide, drawn as a glowing mycelium network.
+Dünya mantarlarının çeşitlilik haritası — an interactive 3D map of mushroom taxonomy
+worldwide (kingdom → phylum → … → species), drawn as a glowing mycelium network.
+The tree follows the Linnaean ranks, which in modern fungal systematics largely
+reflect shared ancestry, but it is a classification, not a phylogeny: branch order
+within a rank is unresolved and distances on screen carry no evolutionary meaning.
 Species do not need to occur in Türkiye to be included.
 Live at **https://mushroom.turkerziyaercin.com** (Cloudflare).
 
