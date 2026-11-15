@@ -8,7 +8,7 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
-import matter from 'gray-matter'
+import { contentId, parseContent } from './content'
 import YAML from 'yaml'
 import { z } from 'zod'
 import { hierarchy, tree as d3tree, type HierarchyNode } from 'd3-hierarchy'
@@ -21,7 +21,7 @@ const OUT = path.join(ROOT, 'public', 'data')
 
 // ---------- schemas ----------
 
-const id = z.string().regex(/^[a-z0-9-]+$/, 'ids are lowercase-kebab-case')
+const id = contentId
 
 type CladeInput = {
   id: string
@@ -110,7 +110,7 @@ function description(file: string, body: string): Localized {
 const speciesDir = path.join(CONTENT, 'species')
 const details: SpeciesDetail[] = []
 for (const file of fs.readdirSync(speciesDir).filter((f) => f.endsWith('.md')).sort()) {
-  const { data, content } = matter(fs.readFileSync(path.join(speciesDir, file), 'utf8'))
+  const { data, content } = parseContent(fs.readFileSync(path.join(speciesDir, file), 'utf8'))
   const parsed = Species.safeParse(data)
   if (!parsed.success) fail(`${file}: ${z.prettifyError(parsed.error)}`)
   const s = parsed.data
@@ -156,7 +156,7 @@ for (const file of fs.readdirSync(cladeDir).filter((f) => f.endsWith('.md')).sor
   const cid = file.slice(0, -3)
   const node = byId.get(cid)
   if (!node || node.rank === 'species') fail(`clades/${file}: no clade with id "${cid}" in clades.yml`)
-  const { content } = matter(fs.readFileSync(path.join(cladeDir, file), 'utf8'))
+  const { content } = parseContent(fs.readFileSync(path.join(cladeDir, file), 'utf8'))
   cladeTexts.set(cid, description(`clades/${file}`, content))
 }
 

@@ -7,7 +7,7 @@
  */
 import fs from 'node:fs'
 import path from 'node:path'
-import matter from 'gray-matter'
+import { occurrenceTarget, parseContent } from './content'
 
 const ROOT = path.resolve(import.meta.dirname, '..')
 const SPECIES = path.join(ROOT, 'content', 'species')
@@ -37,7 +37,8 @@ const files = fs.readdirSync(SPECIES).filter((f) => f.endsWith('.md') && (only.s
 fs.mkdirSync(OUT, { recursive: true })
 
 for (const file of files.sort()) {
-  const { id, latin } = matter(fs.readFileSync(path.join(SPECIES, file), 'utf8')).data as { id: string; latin: string }
+  const { data } = parseContent(fs.readFileSync(path.join(SPECIES, file), 'utf8'))
+  const { id, latin, outputPath } = occurrenceTarget(data, file, OUT)
   const match = await get<Match>(`${API}/species/match?kingdom=Fungi&name=${encodeURIComponent(latin)}`)
   const taxonKey = match.acceptedUsageKey ?? match.usageKey
   if (!taxonKey || match.matchType !== 'EXACT') {
@@ -85,6 +86,6 @@ for (const file of files.sort()) {
     worldRecords: world.count,
     countries,
   }
-  fs.writeFileSync(path.join(OUT, `${id}.json`), JSON.stringify(out, null, 1).replace(/\[\n\s+(-?[\d.]+),\n\s+(-?[\d.]+)\n\s+\]/g, '[$1, $2]') + '\n')
+  fs.writeFileSync(outputPath, JSON.stringify(out, null, 1).replace(/\[\n\s+(-?[\d.]+),\n\s+(-?[\d.]+)\n\s+\]/g, '[$1, $2]') + '\n')
   console.log(`✔ ${id}: ${count} records, ${points.length} places; ${world.count} worldwide in ${Object.keys(countries).length} countries`)
 }
