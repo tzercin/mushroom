@@ -39,7 +39,7 @@ export function Search({ tree }: { tree: TreeIndex }) {
         className="glass w-full rounded-full px-5 py-2.5 text-sm outline-none placeholder:text-white/40 focus:border-white/25"
       />
       {query.trim() && (
-        <ul className="glass absolute mt-2 w-full overflow-hidden rounded-2xl py-1 text-sm">
+        <ul className="glass absolute mt-2 max-h-[calc(100dvh-10rem)] w-full overflow-y-auto overscroll-contain rounded-2xl py-1 text-sm">
           {results.length === 0 && <li className="px-5 py-2 text-white/40">{t('noResults')}</li>}
           {results.map((n, i) => (
             <li key={n.id}>
